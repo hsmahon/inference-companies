@@ -348,6 +348,14 @@
           </thead>
           <tbody>
             <tr>
+              <td data-label="Company">Cerebras</td>
+              <td data-label="Headcount" data-val="750">501-1,000 employees (LinkedIn)</td>
+              <td data-label="Funding Round" data-val="G"><span class="badge series">Series G</span></td>
+              <td data-label="Amount Raised" data-val="1100" class="amount">$1.1B</td>
+              <td data-label="Careers"><a href="https://www.cerebras.ai/careers">cerebras.ai/careers</a></td>
+              <td data-label="Sources"><a href="https://www.linkedin.com/company/cerebras-systems/">Headcount</a> | <a href="https://en.wikipedia.org/wiki/Cerebras">Funding</a></td>
+            </tr>
+            <tr>
               <td data-label="Company">CoreWeave</td>
               <td data-label="Headcount" data-val="933">933 employees (May 2025)</td>
               <td data-label="Funding Round" data-val="C"><span class="badge series">Series C</span></td>
@@ -386,6 +394,14 @@
               <td data-label="Amount Raised" data-val="80" class="amount">$80M+</td>
               <td data-label="Careers"><a href="https://modal.com/company#careers">modal.com/company#careers</a></td>
               <td data-label="Sources"><a href="https://craft.co/modal-labs/human-capital">Headcount</a> | <a href="https://modal.com/blog/announcing-our-series-b">Funding</a></td>
+            </tr>
+            <tr>
+              <td data-label="Company">Etched</td>
+              <td data-label="Headcount" data-val="125">51-200 employees (LinkedIn)</td>
+              <td data-label="Funding Round" data-val="other"><span class="badge strategic">Round</span></td>
+              <td data-label="Amount Raised" data-val="500" class="amount">$500M</td>
+              <td data-label="Careers"><a href="https://www.etched.com/careers">etched.com/careers</a></td>
+              <td data-label="Sources"><a href="https://www.linkedin.com/company/etched-ai/">Headcount</a> | <a href="https://finance.yahoo.com/news/etched-raises-500-million-challenge-115812959.html">Funding</a></td>
             </tr>
             <tr>
               <td data-label="Company">Fireworks AI</td>
@@ -459,7 +475,7 @@
       if (countEl) countEl.textContent = tbody.rows.length + " companies tracked";
 
       /* ── Sorting ─────────────────────────────────────────────── */
-      const TIER = { seed: 0, a: 1, b: 2, c: 3, d: 4, e: 5, strategic: 6, other: 7 };
+      const TIER = { seed: 0, a: 1, b: 2, c: 3, d: 4, e: 5, f: 6, g: 7, strategic: 8, other: 9 };
 
       function cellValue(row, col, type) {
         const cell = row.cells[col];

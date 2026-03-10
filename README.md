@@ -19,7 +19,7 @@ A curated tracker of **startup-focused AI inference companies** — covering hea
 
 ## Companies included
 
-CoreWeave · Nebius · Nscale · Together AI · Modal · Fireworks AI · Baseten · Modular · Deep Infra · Anyscale · Runpod · SambaNova
+Cerebras · CoreWeave · Nebius · Nscale · Together AI · Modal · Etched · Fireworks AI · Baseten · Modular · Deep Infra · Anyscale · Runpod · SambaNova
 
 ## Features
 
