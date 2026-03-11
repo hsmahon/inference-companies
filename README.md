@@ -66,7 +66,7 @@ Funding refresh/check sources:
 - https://www.modular.com/blog/modular-raises-250m-to-scale-ais-unified-compute-layer
 - https://www.anyscale.com/press/anyscale-secures-100m-series-c-at-1b-valuation-to-radically-simplify-scaling-and-productionizing-ai-applications
 - https://www.businesswire.com/news/home/20240508053225/en/Runpod-Raises-20M-in-Seed-Funding-Co-led-by-Intel-Capital-and-Dell-Technologies-Capital
-- https://www.crunchbase.com/organization/sambanova-systems
+- https://finance.yahoo.com/news/sambanova-raises-350m-more-upstarts-110000382.html
 
 ## Changelog
 
@@ -76,6 +76,7 @@ Funding refresh/check sources:
 - Updated headcount display to number-only values in the table.
 - Removed `+` suffixes from amount-raised cells (for consistency).
 - Standardized SambaNova sources format to `Headcount | Funding`.
+- Normalized all funding rounds to `Seed` / `Series <Letter>` labels.
 - Updated several headcount snapshots from latest publicly visible LinkedIn/Craft values.
 
 ## Contributing
