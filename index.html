@@ -231,6 +231,7 @@
       white-space: nowrap;
     }
     .badge.series  { border-color: rgba(118,185,0,.5);   color: #d3f197; background: rgba(118,185,0,.14); }
+    .badge.series.late { border-color: rgba(255,110,110,.58); color: #ffb3b3; background: rgba(255,110,110,.18); }
     .badge.seed    { border-color: rgba(118,216,255,.5);  color: #bdeefe; background: rgba(118,216,255,.14); }
     .badge.strategic{ border-color: rgba(194,166,255,.5); color: #e1d0ff; background: rgba(194,166,255,.14); }
 
@@ -476,6 +477,16 @@
 
       /* ── Sorting ─────────────────────────────────────────────── */
       const TIER = { seed: 0, a: 1, b: 2, c: 3, d: 4, e: 5, f: 6, g: 7, strategic: 8, other: 9 };
+
+      /* ── Funding badge color normalization ───────────────────── */
+      Array.from(tbody.rows).forEach((row) => {
+        const roundCell = row.cells[2];
+        const roundVal = (roundCell?.dataset.val || "").toLowerCase();
+        const badge = roundCell?.querySelector(".badge.series");
+        if (!badge) return;
+        const tier = TIER[roundVal] ?? 99;
+        badge.classList.toggle("late", tier > 2);
+      });
 
       function cellValue(row, col, type) {
         const cell = row.cells[col];
