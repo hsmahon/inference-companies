@@ -565,30 +565,43 @@
         return raw.toLowerCase();
       }
 
-      let sortCol = -1, sortAsc = true;
+      const headers = Array.from(document.querySelectorAll("#inferenceTable thead th"));
 
-      document.querySelectorAll("#inferenceTable thead th").forEach((th) => {
+      function updateSortState(col, ascending) {
+        headers.forEach((header) => {
+          header.classList.remove("sort-asc", "sort-desc");
+          header.querySelector(".sort-arrow").textContent = "↕";
+        });
+
+        const activeHeader = headers.find((header) => parseInt(header.dataset.col, 10) === col);
+        if (!activeHeader) return;
+
+        activeHeader.classList.add(ascending ? "sort-asc" : "sort-desc");
+        activeHeader.querySelector(".sort-arrow").textContent = ascending ? "↑" : "↓";
+      }
+
+      function sortRows(col, type, ascending) {
+        const rows = Array.from(tbody.rows);
+        rows.sort((a, b) => {
+          const va = cellValue(a, col, type);
+          const vb = cellValue(b, col, type);
+          const cmp = typeof va === "number" ? va - vb : va.localeCompare(vb);
+          return ascending ? cmp : -cmp;
+        });
+        rows.forEach((row) => tbody.appendChild(row));
+        updateSortState(col, ascending);
+      }
+
+      let sortCol = 2, sortAsc = true;
+      sortRows(sortCol, "tier", sortAsc);
+
+      headers.forEach((th) => {
         th.addEventListener("click", () => {
           const col  = parseInt(th.dataset.col, 10);
           const type = th.dataset.type;
           sortAsc = sortCol === col ? !sortAsc : true;
           sortCol = col;
-
-          document.querySelectorAll("#inferenceTable thead th").forEach((h) => {
-            h.classList.remove("sort-asc", "sort-desc");
-            h.querySelector(".sort-arrow").textContent = "↕";
-          });
-          th.classList.add(sortAsc ? "sort-asc" : "sort-desc");
-          th.querySelector(".sort-arrow").textContent = sortAsc ? "↑" : "↓";
-
-          const rows = Array.from(tbody.rows);
-          rows.sort((a, b) => {
-            const va = cellValue(a, col, type);
-            const vb = cellValue(b, col, type);
-            const cmp = typeof va === "number" ? va - vb : va.localeCompare(vb);
-            return sortAsc ? cmp : -cmp;
-          });
-          rows.forEach((r) => tbody.appendChild(r));
+          sortRows(col, type, sortAsc);
         });
       });
     })();
