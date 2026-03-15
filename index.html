@@ -6,7 +6,7 @@
   <title>INFERENCE COMPANIES</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     /* ── Design tokens ─────────────────────────────────────────── */
     :root {
@@ -26,7 +26,7 @@
       --nvidia-soft: #b6e45f;
       --ice:         #76d8ff;
       --radius-card: 18px;
-      --font-sans:   "IBM Plex Mono", "Consolas", monospace;
+      --font-mono:   "Azeret Mono", "Consolas", monospace;
     }
 
     /* ── Reset ─────────────────────────────────────────────────── */
@@ -36,8 +36,11 @@
       margin: 0;
       min-height: 100vh;
       color: var(--text);
-      font-family: var(--font-sans);
-      line-height: 1.5;
+      font-family: var(--font-mono);
+      line-height: 1.6;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      font-variant-numeric: lining-nums tabular-nums;
       background:
         radial-gradient(1000px 460px at -8% -18%, rgba(118,185,0,.2), transparent 60%),
         radial-gradient(740px 420px at 110% 0%, rgba(118,216,255,.13), transparent 60%),
@@ -78,20 +81,20 @@
     .kicker {
       margin: 0;
       color: var(--ice);
-      letter-spacing: .22em;
+      letter-spacing: .3em;
       text-transform: uppercase;
-      font-family: var(--font-sans);
-      font-weight: 700;
-      font-size: .76rem;
+      font-weight: 600;
+      font-size: .72rem;
+      opacity: .9;
     }
 
     h1 {
-      margin: 8px 0;
-      font-family: var(--font-sans);
-      font-weight: 400;
-      font-size: clamp(2.15rem, 4vw, 3.7rem);
-      letter-spacing: .04em;
-      line-height: .9;
+      margin: 10px 0 12px;
+      font-weight: 700;
+      font-size: clamp(2.65rem, 5vw, 4.85rem);
+      letter-spacing: -.04em;
+      line-height: .92;
+      text-transform: uppercase;
       text-wrap: balance;
       text-shadow: 0 8px 24px rgba(118,185,0,.22);
     }
@@ -99,8 +102,9 @@
     .subtitle {
       margin: 0;
       color: var(--muted);
-      font-size: .98rem;
-      max-width: 90ch;
+      font-size: 1rem;
+      line-height: 1.8;
+      max-width: 68ch;
     }
 
     .meta {
@@ -115,8 +119,10 @@
       background: linear-gradient(180deg, rgba(20,30,40,.95), rgba(12,20,28,.95));
       border-radius: 999px;
       padding: 7px 12px;
-      font-family: var(--font-sans);
-      font-size: .84rem;
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      text-transform: uppercase;
       color: #d7e4f1;
       display: inline-flex;
       align-items: center;
@@ -158,10 +164,11 @@
     th, td {
       border-right: 1px solid var(--line);
       border-bottom: 1px solid var(--line);
-      padding: 11px 13px;
+      padding: 12px 13px;
       text-align: left;
       vertical-align: top;
-      font-size: .92rem;
+      font-size: .91rem;
+      line-height: 1.65;
     }
 
     th:last-child, td:last-child { border-right: 0; }
@@ -173,11 +180,10 @@
       z-index: 1;
       background: var(--bg-head);
       color: var(--nvidia-soft);
-      font-family: var(--font-sans);
       text-transform: uppercase;
-      letter-spacing: .05em;
-      font-size: .74rem;
-      font-weight: 700;
+      letter-spacing: .14em;
+      font-size: .72rem;
+      font-weight: 600;
       white-space: nowrap;
       user-select: none;
       cursor: pointer;
@@ -201,9 +207,9 @@
     tbody tr:hover           td { background: var(--bg-row-hover); }
 
     td:first-child {
-      font-family: var(--font-sans);
-      font-weight: 600;
-      font-size: .95rem;
+      font-weight: 700;
+      font-size: .94rem;
+      letter-spacing: -.03em;
       color: #f2f8ff;
     }
 
@@ -228,9 +234,9 @@
       border: 1px solid rgba(130,155,181,.45);
       background: rgba(58,74,91,.3);
       padding: 3px 9px;
-      font-family: var(--font-sans);
-      font-size: .74rem;
-      letter-spacing: .03em;
+      font-size: .71rem;
+      font-weight: 600;
+      letter-spacing: .08em;
       text-transform: uppercase;
       color: #d7e6f4;
       white-space: nowrap;
@@ -243,8 +249,8 @@
 
     /* ── Amount raised cell ────────────────────────────────────── */
     .amount {
-      font-family: var(--font-sans);
-      font-weight: 600;
+      font-weight: 700;
+      letter-spacing: -.04em;
       color: #d3f197;
       white-space: nowrap;
     }
@@ -258,7 +264,9 @@
     .footer-note {
       margin-top: 12px;
       padding-left: 2px;
-      font-size: .88rem;
+      font-size: .82rem;
+      line-height: 1.7;
+      letter-spacing: .02em;
       color: #95a3b2;
     }
 
@@ -266,8 +274,8 @@
     @media (max-width: 1024px) {
       .page { margin: 20px auto; }
       .hero { padding: 22px 20px 18px; }
-      th, td { padding: 9px 10px; font-size: .86rem; }
-      th { font-size: .7rem; }
+      th, td { padding: 10px 11px; font-size: .85rem; }
+      th { font-size: .68rem; }
       table { min-width: 720px; }
     }
 
@@ -276,7 +284,9 @@
       .page { width: 100%; margin: 0; }
       .hero { border-radius: 0; border-left: 0; border-right: 0; border-top: 0; padding: 18px 16px 14px; }
       .hero::after { display: none; }
-      h1 { font-size: 1.5rem; }
+      h1 { font-size: 1.9rem; line-height: 1; }
+      .kicker { font-size: .66rem; letter-spacing: .24em; }
+      .subtitle { font-size: .92rem; line-height: 1.7; }
 
       .table-shell {
         border-radius: 0;
@@ -301,18 +311,17 @@
       td {
         border: 0;
         padding: 4px 0;
-        font-size: .88rem;
+        font-size: .87rem;
         display: flex;
         gap: 8px;
       }
 
       td::before {
         content: attr(data-label);
-        font-family: var(--font-sans);
         font-size: .68rem;
-        font-weight: 700;
+        font-weight: 600;
         text-transform: uppercase;
-        letter-spacing: .06em;
+        letter-spacing: .12em;
         color: var(--muted);
         min-width: 100px;
         flex-shrink: 0;
