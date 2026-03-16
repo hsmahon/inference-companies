@@ -6,7 +6,7 @@
   <title>INFERENCE COMPANIES</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@400;500;600;700;800&family=Oxanium:wght@600;700;800&display=swap" rel="stylesheet">
   <style>
     /* ── Design tokens ─────────────────────────────────────────── */
     :root {
@@ -27,6 +27,7 @@
       --ice:         #76d8ff;
       --radius-card: 18px;
       --font-mono:   "Azeret Mono", "Consolas", monospace;
+      --font-display:"Oxanium", "Azeret Mono", monospace;
     }
 
     /* ── Reset ─────────────────────────────────────────────────── */
@@ -90,9 +91,10 @@
 
     h1 {
       margin: 10px 0 12px;
+      font-family: var(--font-display);
       font-weight: 700;
       font-size: clamp(2.65rem, 5vw, 4.85rem);
-      letter-spacing: -.04em;
+      letter-spacing: .015em;
       line-height: .92;
       text-transform: uppercase;
       text-wrap: balance;
