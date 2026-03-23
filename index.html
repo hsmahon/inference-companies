@@ -235,10 +235,10 @@
       font-weight: 600;
       white-space: nowrap;
       user-select: none;
-      cursor: pointer;
     }
 
-    th:hover { color: #fff; }
+    th[data-col] { cursor: pointer; }
+    th[data-col]:hover { color: #fff; }
 
     /* Sort arrow */
     th .sort-arrow {
@@ -418,12 +418,12 @@
         <table id="inferenceTable">
           <thead>
             <tr>
-              <th data-col="0" data-type="alpha">Company <span class="sort-arrow">↕</span></th>
+              <th>Company</th>
               <th data-col="1" data-type="num">Headcount <span class="sort-arrow">↕</span></th>
               <th data-col="2" data-type="tier">Funding Round <span class="sort-arrow">↕</span></th>
               <th data-col="3" data-type="money">Amount Raised <span class="sort-arrow">↕</span></th>
-              <th data-col="4" data-type="alpha">Careers Page <span class="sort-arrow">↕</span></th>
-              <th data-col="5" data-type="alpha">Sources <span class="sort-arrow">↕</span></th>
+              <th>Careers Page</th>
+              <th>Sources</th>
             </tr>
           </thead>
           <tbody>
@@ -621,6 +621,15 @@
       /* ── Sorting ─────────────────────────────────────────────── */
       const TIER = { seed: 0, a: 1, b: 2, c: 3, d: 4, e: 5, f: 6, g: 7, other: 8, strategic: 8.5, public: 9 };
 
+      /* ── Headcount display normalization ─────────────────────── */
+      Array.from(tbody.rows).forEach((row) => {
+        const headcountCell = row.cells[1];
+        const rawHeadcount = Number(headcountCell?.dataset.val || 0);
+        if (headcountCell && Number.isFinite(rawHeadcount) && rawHeadcount > 0) {
+          headcountCell.textContent = rawHeadcount.toLocaleString("en-US");
+        }
+      });
+
       /* ── Funding badge color normalization ───────────────────── */
       Array.from(tbody.rows).forEach((row) => {
         const roundCell = row.cells[2];
@@ -640,15 +649,15 @@
         return raw.toLowerCase();
       }
 
-      const headers = Array.from(document.querySelectorAll("#inferenceTable thead th"));
+      const sortableHeaders = Array.from(document.querySelectorAll("#inferenceTable thead th[data-col]"));
 
       function updateSortState(col, ascending) {
-        headers.forEach((header) => {
+        sortableHeaders.forEach((header) => {
           header.classList.remove("sort-asc", "sort-desc");
           header.querySelector(".sort-arrow").textContent = "↕";
         });
 
-        const activeHeader = headers.find((header) => parseInt(header.dataset.col, 10) === col);
+        const activeHeader = sortableHeaders.find((header) => parseInt(header.dataset.col, 10) === col);
         if (!activeHeader) return;
 
         activeHeader.classList.add(ascending ? "sort-asc" : "sort-desc");
@@ -670,7 +679,7 @@
       let sortCol = 2, sortAsc = true;
       sortRows(sortCol, "tier", sortAsc);
 
-      headers.forEach((th) => {
+      sortableHeaders.forEach((th) => {
         th.addEventListener("click", () => {
           const col  = parseInt(th.dataset.col, 10);
           const type = th.dataset.type;
