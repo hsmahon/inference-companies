@@ -19,6 +19,12 @@ A curated tracker of **startup-focused AI inference companies** — covering hea
 
 ## Changelog
 
+### Version 0.3 (2026-05-04)
+
+- Refreshed fundraising rounds for tracked inference companies.
+- Removed Nebius, CoreWeave, Crusoe, and Nscale.
+- Added SambaNova back to the tracker.
+
 ### Version 0.2 (2026-03-11)
 
 - Refreshed public data sources across all listed companies.
