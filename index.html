@@ -158,7 +158,7 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      min-width: 1100px;
+      min-width: 1240px;
     }
 
     th, td {
@@ -194,13 +194,37 @@
 
     th .sort-arrow {
       display: inline-block;
-      margin-left: 5px;
+      position: relative;
+      width: 10px;
+      height: 12px;
+      margin-left: 6px;
       opacity: .45;
-      font-style: normal;
-      font-size: .7rem;
+      vertical-align: -2px;
     }
+
+    th .sort-arrow::before,
+    th .sort-arrow::after {
+      content: "";
+      position: absolute;
+      left: 2px;
+      border-left: 3px solid transparent;
+      border-right: 3px solid transparent;
+    }
+
+    th .sort-arrow::before {
+      top: 0;
+      border-bottom: 4px solid currentColor;
+    }
+
+    th .sort-arrow::after {
+      bottom: 0;
+      border-top: 4px solid currentColor;
+    }
+
     th.sort-asc  .sort-arrow,
     th.sort-desc .sort-arrow { opacity: 1; color: #9cdcf3; }
+    th.sort-asc .sort-arrow::after,
+    th.sort-desc .sort-arrow::before { opacity: 0; }
 
     tbody tr td { background: var(--surface); }
     tbody tr:nth-child(even) td { background: #121411; }
@@ -269,6 +293,16 @@
       cursor: help;
     }
 
+    .revenue {
+      color: var(--green);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .revenue[title] {
+      cursor: help;
+    }
+
     @keyframes page-rise {
       from { opacity: 0; transform: translateY(8px); }
       to { opacity: 1; transform: translateY(0); }
@@ -296,7 +330,7 @@
       .subtitle { font-size: 1rem; }
       th, td { padding: 13px 12px; font-size: .78rem; }
       th { font-size: .65rem; }
-      table { min-width: 980px; }
+      table { min-width: 1120px; }
     }
 
     @media (max-width: 720px) {
@@ -340,6 +374,8 @@
 
       .table-wrap { overflow: visible; }
       table, thead, tbody, tr, th, td { display: block; }
+      table, tbody, tr { width: 100%; }
+      table { min-width: 0; }
       thead { display: none; }
 
       tbody tr {
@@ -355,8 +391,19 @@
         background: transparent !important;
         padding: 5px 0;
         font-size: .79rem;
-        display: flex;
-        gap: 12px;
+        display: grid;
+        grid-template-columns: 112px minmax(0, 1fr);
+        gap: 16px;
+        align-items: start;
+      }
+
+      td a { overflow-wrap: anywhere; }
+
+      .badge {
+        width: 92px;
+        height: 28px;
+        padding: 0 6px;
+        justify-content: center;
       }
 
       td::before {
@@ -367,8 +414,7 @@
         text-transform: uppercase;
         letter-spacing: 0;
         color: var(--muted);
-        min-width: 112px;
-        flex-shrink: 0;
+        min-width: 0;
         padding-top: 3px;
       }
 
@@ -383,6 +429,11 @@
       tbody tr:last-child td { border-bottom: 0; }
 
       .footer-note { margin: 18px 18px 0; }
+    }
+
+    @media (max-width: 420px) {
+      h1 { font-size: 2.6rem; }
+      td { grid-template-columns: 96px minmax(0, 1fr); gap: 12px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -408,9 +459,10 @@
             <tr>
               <th>Company</th>
               <th>Deployed Power</th>
-              <th data-col="2" data-type="num">Headcount <span class="sort-arrow">↕</span></th>
-              <th data-col="3" data-type="tier">Funding Round <span class="sort-arrow">↕</span></th>
-              <th data-col="4" data-type="money">Amount Raised <span class="sort-arrow">↕</span></th>
+              <th>Potential Annual Revenue</th>
+              <th data-col="3" data-type="num">Headcount <span class="sort-arrow" aria-hidden="true"></span></th>
+              <th data-col="4" data-type="tier">Funding Round <span class="sort-arrow" aria-hidden="true"></span></th>
+              <th data-col="5" data-type="money">Amount Raised <span class="sort-arrow" aria-hidden="true"></span></th>
               <th>Careers Page</th>
               <th>Sources</th>
             </tr>
@@ -419,97 +471,108 @@
             <tr>
               <td data-label="Company">Cerebras</td>
               <td data-label="Deployed Power" class="power" title="Known named IT load. Cerebras has begun delivering a separate 750 MW OpenAI commitment in tranches through 2028."><a href="https://www.sec.gov/Archives/edgar/data/2042022/000121390026056212/ea0288695-10q_whitefiber.htm">5+ MW</a></td>
-              <td data-label="Headcount" data-val="872">872</td>
+              <td data-label="Annual Revenue" class="revenue" title="Illustrative estimate using $10M of annual revenue per deployed MW.">$50M</td>
+              <td data-label="Headcount" data-val="980">980</td>
               <td data-label="Funding Round" data-val="public"><span class="badge public">Public</span></td>
               <td data-label="Amount Raised" data-val="6380" class="amount">$6.38B</td>
-              <td data-label="Careers"><a href="https://www.cerebras.ai/careers">cerebras.ai/careers</a></td>
-              <td data-label="Sources"><a href="https://www.tipranks.com/private-companies/cerebras-systems">Headcount</a> | <a href="https://www.cerebras.ai/press-release/cerebras-systems-announces-closing-of-initial-public-offering">Funding</a></td>
+              <td data-label="Careers"><a href="https://www.cerebras.ai/open-positions">cerebras.ai/open-positions</a></td>
+              <td data-label="Sources"><a href="https://www.linkedin.com/company/cerebras-systems/jobs/">Headcount</a> | <a href="https://www.cerebras.ai/press-release/cerebras-systems-announces-closing-of-initial-public-offering">Funding</a></td>
             </tr>
             <tr>
               <td data-label="Company">NVIDIA</td>
-              <td data-label="Deployed Power" class="power" title="Global customer-installed Blackwell infrastructure, not NVIDIA-owned data-center capacity."><a href="https://s201.q4cdn.com/141608511/files/doc_financials/2026/ar/2026-annual-report-web-Hyperlinks.pdf">~9 GW</a></td>
-              <td data-label="Headcount" data-val="42000">42,000</td>
+              <td data-label="Deployed Power" class="power" title="Global customer-installed Blackwell infrastructure, not NVIDIA-owned data-center capacity."><a href="https://s201.q4cdn.com/141608511/files/doc_financials/2026/ar/2026-annual-report-web-Hyperlinks.pdf">9 GW</a></td>
+              <td data-label="Annual Revenue" class="revenue" title="Illustrative ecosystem revenue potential using $10B per deployed GW. This is not NVIDIA revenue because the capacity is customer-installed.">$90B</td>
+              <td data-label="Headcount" data-val="50250">50,250</td>
               <td data-label="Funding Round" data-val="public"><span class="badge public">Public</span></td>
               <td data-label="Amount Raised" data-val="0" class="amount">N/A</td>
-              <td data-label="Careers"><a href="https://www.linkedin.com/company/nvidia/jobs/">linkedin.com/company/nvidia/jobs</a></td>
-              <td data-label="Sources"><a href="https://s201.q4cdn.com/141608511/files/doc_financials/2026/ar/2026-annual-report-web-Hyperlinks.pdf">Headcount</a> | <a href="https://www.nvidia.com/en-us/about-nvidia/">Funding</a></td>
+              <td data-label="Careers"><a href="https://www.nvidia.com/en-us/about-nvidia/careers/">nvidia.com/careers</a></td>
+              <td data-label="Sources"><a href="https://www.linkedin.com/company/nvidia">Headcount</a> | <a href="https://www.nvidia.com/en-us/about-nvidia/">Funding</a></td>
             </tr>
             <tr>
               <td data-label="Company">Clarifai</td>
               <td data-label="Deployed Power" class="power" title="Clarifai provisions compute across partner and customer clouds but does not disclose an aggregate fleet or MW total.">N/A</td>
-              <td data-label="Headcount" data-val="68">68</td>
+              <td data-label="Annual Revenue" class="revenue" title="Cannot estimate without disclosed deployed power.">N/A</td>
+              <td data-label="Headcount" data-val="52">52</td>
               <td data-label="Funding Round" data-val="C"><span class="badge series">Series C</span></td>
               <td data-label="Amount Raised" data-val="60" class="amount">$60M</td>
-              <td data-label="Careers"><a href="https://www.clarifai.com/careers">clarifai.com/careers</a></td>
-              <td data-label="Sources"><a href="https://www.unifygtm.com/insights-headcount/clarifai">Headcount</a> | <a href="https://www.clarifai.com/blog/clarifai-raises-60m-series-c-to-fuel-growth-of-its-ai-lifecycle-platform">Funding</a></td>
+              <td data-label="Careers"><a href="https://www.clarifai.com/company/careers">clarifai.com/company/careers</a></td>
+              <td data-label="Sources"><a href="https://www.linkedin.com/company/clarifai">Headcount</a> | <a href="https://www.clarifai.com/blog/clarifai-raises-60m-series-c-to-fuel-growth-of-its-ai-lifecycle-platform">Funding</a></td>
             </tr>
             <tr>
               <td data-label="Company">Together AI</td>
-              <td data-label="Deployed Power" class="power" title="Capacity Together AI describes as available in Europe. It separately reports 600 MW near-term US capacity and a 2 GW+ portfolio."><a href="https://www.together.ai/gpu/nvidia-h100">150+ MW</a></td>
-              <td data-label="Headcount" data-val="368">368</td>
-              <td data-label="Funding Round" data-val="B"><span class="badge series">Series B</span></td>
-              <td data-label="Amount Raised" data-val="305" class="amount">$305M</td>
+              <td data-label="Deployed Power" class="power" title="Current capacity stated in the supplied provider comparison."><a href="https://www.together.ai/gpu/nvidia-h100">200 MW</a></td>
+              <td data-label="Annual Revenue" class="revenue" title="Illustrative estimate using $10M of annual revenue per deployed MW.">$2B</td>
+              <td data-label="Headcount" data-val="416">416</td>
+              <td data-label="Funding Round" data-val="C"><span class="badge series">Series C</span></td>
+              <td data-label="Amount Raised" data-val="800" class="amount">$800M</td>
               <td data-label="Careers"><a href="https://www.together.ai/careers">together.ai/careers</a></td>
-              <td data-label="Sources"><a href="https://www.linkedin.com/company/togethercomputer/jobs">Headcount</a> | <a href="https://www.together.ai/blog/together-ai-announcing-305m-series-b">Funding</a></td>
+              <td data-label="Sources"><a href="https://www.linkedin.com/company/togethercomputer/jobs">Headcount</a> | <a href="https://www.together.ai/blog/announcing-our-series-c">Funding</a></td>
             </tr>
             <tr>
               <td data-label="Company">Modal</td>
-              <td data-label="Deployed Power" class="power" title="Estimated accelerator-to-system envelope for Modal's 20,000+ concurrent mixed-GPU pool. This is multi-cloud capacity, not owned facility power."><a href="https://modal.com/blog/gpu-health">~1-39 MW</a></td>
-              <td data-label="Headcount" data-val="84">84</td>
+              <td data-label="Deployed Power" class="power" title="Conservative lower-bound estimate for Modal's 20,000+ concurrent mixed-GPU pool. This is multi-cloud capacity, not owned facility power."><a href="https://modal.com/blog/gpu-health">1+ MW</a></td>
+              <td data-label="Annual Revenue" class="revenue" title="Illustrative estimate using the displayed conservative power figure and $10M of annual revenue per deployed MW.">$10M</td>
+              <td data-label="Headcount" data-val="193">193</td>
               <td data-label="Funding Round" data-val="B"><span class="badge series">Series B</span></td>
               <td data-label="Amount Raised" data-val="87" class="amount">$87M</td>
               <td data-label="Careers"><a href="https://modal.com/company#careers">modal.com/company#careers</a></td>
-              <td data-label="Sources"><a href="https://www.unifygtm.com/insights-headcount/modal">Headcount</a> | <a href="https://modal.com/blog/announcing-our-series-b">Funding</a></td>
+              <td data-label="Sources"><a href="https://www.linkedin.com/company/modal-labs/jobs/">Headcount</a> | <a href="https://modal.com/blog/announcing-our-series-b">Funding</a></td>
             </tr>
             <tr>
               <td data-label="Company">Etched</td>
               <td data-label="Deployed Power" class="power" title="Etched has working Sohu silicon and test racks, but has not disclosed production fleet size or deployed MW.">N/A</td>
-              <td data-label="Headcount" data-val="328">328</td>
+              <td data-label="Annual Revenue" class="revenue" title="Cannot estimate without disclosed deployed power.">N/A</td>
+              <td data-label="Headcount" data-val="491">491</td>
               <td data-label="Funding Round" data-val="B"><span class="badge series">Series B</span></td>
               <td data-label="Amount Raised" data-val="500" class="amount">$500M</td>
-              <td data-label="Careers"><a href="https://www.etched.com/careers">etched.com/careers</a></td>
-              <td data-label="Sources"><a href="https://www.tipranks.com/private-companies/etched">Headcount</a> | <a href="https://www.cbinsights.com/company/etched/financials">Funding</a></td>
+              <td data-label="Careers"><a href="https://www.etched.com/join">etched.com/join</a></td>
+              <td data-label="Sources"><a href="https://www.linkedin.com/company/etched-ai/jobs">Headcount</a> | <a href="https://www.cbinsights.com/company/etched/financials">Funding</a></td>
             </tr>
             <tr>
               <td data-label="Company">Fireworks AI</td>
-              <td data-label="Deployed Power" class="power" title="Fireworks operates across 18+ regions and 8 providers but does not disclose its aggregate GPU fleet or MW.">N/A</td>
-              <td data-label="Headcount" data-val="123">123</td>
+              <td data-label="Deployed Power" class="power" title="The supplied provider comparison discusses Fireworks alongside Baseten but does not state current or planned MW.">N/A</td>
+              <td data-label="Annual Revenue" class="revenue" title="Cannot estimate without disclosed deployed power.">N/A</td>
+              <td data-label="Headcount" data-val="249">249</td>
               <td data-label="Funding Round" data-val="C"><span class="badge series">Series C</span></td>
               <td data-label="Amount Raised" data-val="250" class="amount">$250M</td>
               <td data-label="Careers"><a href="https://fireworks.ai/careers">fireworks.ai/careers</a></td>
-              <td data-label="Sources"><a href="https://www.unifygtm.com/insights-headcount/fireworks-ai">Headcount</a> | <a href="https://www.businesswire.com/news/home/20251028604819/en/Fireworks-AI-Raises-250M-Series-C-to-Lead-the-AI-Inference-Market">Funding</a></td>
+              <td data-label="Sources"><a href="https://www.linkedin.com/company/fireworks-ai/jobs/">Headcount</a> | <a href="https://www.businesswire.com/news/home/20251028604819/en/Fireworks-AI-Raises-250M-Series-C-to-Lead-the-AI-Inference-Market">Funding</a></td>
             </tr>
             <tr>
               <td data-label="Company">Baseten</td>
-              <td data-label="Deployed Power" class="power" title="Estimated compute-system range from Baseten's disclosed 40,000-80,000 primarily Hopper and Blackwell GPUs."><a href="https://storage.ghost.io/c/ea/a0/eaa014ba-c39c-4d9a-a133-41045822028c/content/files/2026/04/Americas-Technology_-Software_-Revisiting-Moats-IV_-Shifting-Center-of-Gravity--1-.pdf">~51-158 MW</a></td>
-              <td data-label="Headcount" data-val="165">165</td>
+              <td data-label="Deployed Power" class="power" title="Current deployed power is not stated. The supplied provider comparison says Baseten is building 20 MW of owned capacity and renting the remainder.">N/A</td>
+              <td data-label="Annual Revenue" class="revenue" title="Cannot estimate from current deployed power because only planned owned capacity is stated.">N/A</td>
+              <td data-label="Headcount" data-val="319">319</td>
               <td data-label="Funding Round" data-val="E"><span class="badge series">Series E</span></td>
               <td data-label="Amount Raised" data-val="300" class="amount">$300M</td>
-              <td data-label="Careers"><a href="https://www.baseten.co/careers">baseten.co/careers</a></td>
-              <td data-label="Sources"><a href="https://www.unifygtm.com/insights-headcount/baseten">Headcount</a> | <a href="https://www.baseten.co/blog/announcing-baseten-s-300m-series-e/">Funding</a></td>
+              <td data-label="Careers"><a href="https://www.baseten.co/resources/careers/">baseten.co/resources/careers</a></td>
+              <td data-label="Sources"><a href="https://www.linkedin.com/company/baseten/jobs">Headcount</a> | <a href="https://www.baseten.co/blog/announcing-baseten-s-300m-series-e/">Funding</a></td>
             </tr>
             <tr>
               <td data-label="Company">Modular</td>
               <td data-label="Deployed Power" class="power" title="Modular deploys its inference stack in customer VPCs and clouds and does not disclose an attributable hardware fleet.">N/A</td>
-              <td data-label="Headcount" data-val="180">180+</td>
+              <td data-label="Annual Revenue" class="revenue" title="Cannot estimate without disclosed deployed power.">N/A</td>
+              <td data-label="Headcount" data-val="387">387</td>
               <td data-label="Funding Round" data-val="C"><span class="badge series">Series C</span></td>
               <td data-label="Amount Raised" data-val="250" class="amount">$250M</td>
-              <td data-label="Careers"><a href="https://www.modular.com/careers">modular.com/careers</a></td>
-              <td data-label="Sources"><a href="https://salestools.io/report/modular-250m-series-c">Headcount</a> | <a href="https://www.modular.com/blog/modular-raises-250m-to-scale-ais-unified-compute-layer">Funding</a></td>
+              <td data-label="Careers"><a href="https://www.modular.com/company/careers">modular.com/company/careers</a></td>
+              <td data-label="Sources"><a href="https://www.linkedin.com/company/modular-ai/jobs/">Headcount</a> | <a href="https://www.modular.com/blog/modular-raises-250m-to-scale-ais-unified-compute-layer">Funding</a></td>
             </tr>
             <tr>
               <td data-label="Company">Deep Infra</td>
-              <td data-label="Deployed Power" class="power" title="Estimated maximum compute-system power for DeepInfra's marketed 5,000-GPU B300 cluster capacity."><a href="https://deepinfra.ai/">~10 MW</a></td>
-              <td data-label="Headcount" data-val="11">11-50</td>
+              <td data-label="Deployed Power" class="power" title="Conservative current figure from the supplied provider comparison, which states 2-3 MW across approximately 2,000 accelerator cards and at best 20 MW planned."><a href="https://deepinfra.ai/">2+ MW</a></td>
+              <td data-label="Annual Revenue" class="revenue" title="Illustrative estimate using the displayed conservative power figure and $10M of annual revenue per deployed MW.">$20M</td>
+              <td data-label="Headcount" data-val="33">33</td>
               <td data-label="Funding Round" data-val="B"><span class="badge series">Series B</span></td>
               <td data-label="Amount Raised" data-val="107" class="amount">$107M</td>
-              <td data-label="Careers"><a href="https://www.linkedin.com/company/deep-infra/jobs/">linkedin.com/company/deep-infra/jobs</a></td>
+              <td data-label="Careers"><a href="https://jobs.gem.com/deep-infra">jobs.gem.com/deep-infra</a></td>
               <td data-label="Sources"><a href="https://www.linkedin.com/company/deep-infra">Headcount</a> | <a href="https://www.globenewswire.com/news-release/2026/05/04/3286977/0/en/deepinfra-closes-107m-series-b-to-power-production-scale-ai-inference.html">Funding</a></td>
             </tr>
             <tr>
               <td data-label="Company">Hyperbolic</td>
-              <td data-label="Deployed Power" class="power" title="Estimated compute-system power for Hyperbolic's marketed access to 1,000+ H100 GPUs across providers."><a href="https://app.hyperbolic.ai/gpus">~1.3+ MW</a></td>
-              <td data-label="Headcount" data-val="11">11-50</td>
+              <td data-label="Deployed Power" class="power" title="Conservative compute-system estimate for Hyperbolic's marketed access to 1,000+ H100 GPUs across providers."><a href="https://app.hyperbolic.ai/gpus">1.3+ MW</a></td>
+              <td data-label="Annual Revenue" class="revenue" title="Illustrative estimate using the displayed conservative power figure and $10M of annual revenue per deployed MW.">$13M</td>
+              <td data-label="Headcount" data-val="39">39</td>
               <td data-label="Funding Round" data-val="A"><span class="badge series">Series A</span></td>
               <td data-label="Amount Raised" data-val="12" class="amount">$12M</td>
               <td data-label="Careers"><a href="https://jobs.ashbyhq.com/hyperbolic">jobs.ashbyhq.com/hyperbolic</a></td>
@@ -518,36 +581,49 @@
             <tr>
               <td data-label="Company">Anyscale</td>
               <td data-label="Deployed Power" class="power" title="Anyscale runs in customer-selected clouds and does not disclose an attributable hardware fleet or MW total.">N/A</td>
-              <td data-label="Headcount" data-val="240">240</td>
+              <td data-label="Annual Revenue" class="revenue" title="Cannot estimate without disclosed deployed power.">N/A</td>
+              <td data-label="Headcount" data-val="768">768</td>
               <td data-label="Funding Round" data-val="C"><span class="badge series">Series C</span></td>
               <td data-label="Amount Raised" data-val="100" class="amount">$100M</td>
               <td data-label="Careers"><a href="https://www.anyscale.com/careers">anyscale.com/careers</a></td>
-              <td data-label="Sources"><a href="https://www.unifygtm.com/insights-headcount/anyscale">Headcount</a> | <a href="https://www.anyscale.com/press/anyscale-secures-100m-series-c-at-1b-valuation-to-radically-simplify-scaling-and-productionizing-ai-applications">Funding</a></td>
+              <td data-label="Sources"><a href="https://www.linkedin.com/company/joinanyscale/jobs/">Headcount</a> | <a href="https://www.anyscale.com/press/anyscale-secures-100m-series-c-at-1b-valuation-to-radically-simplify-scaling-and-productionizing-ai-applications">Funding</a></td>
             </tr>
             <tr>
               <td data-label="Company">Runpod</td>
               <td data-label="Deployed Power" class="power" title="Lower bound from one live Runpod data center. Runpod does not disclose aggregate power across its full provider network."><a href="https://www.runpod.io/blog/new-runpod-datacenter-now-live-ap-in-1">1+ MW</a></td>
-              <td data-label="Headcount" data-val="98">98</td>
+              <td data-label="Annual Revenue" class="revenue" title="Illustrative estimate using the displayed conservative power figure and $10M of annual revenue per deployed MW.">$10M</td>
+              <td data-label="Headcount" data-val="106">106</td>
               <td data-label="Funding Round" data-val="seed"><span class="badge seed">Seed</span></td>
               <td data-label="Amount Raised" data-val="20" class="amount">$20M</td>
-              <td data-label="Careers"><a href="https://www.runpod.io/careers">runpod.io/careers</a></td>
+              <td data-label="Careers"><a href="https://jobs.ashbyhq.com/runpod">jobs.ashbyhq.com/runpod</a></td>
               <td data-label="Sources"><a href="https://www.linkedin.com/company/runpod-io/life">Headcount</a> | <a href="https://www.businesswire.com/news/home/20240508053225/en/Runpod-Raises-20M-in-Seed-Funding-Co-led-by-Intel-Capital-and-Dell-Technologies-Capital">Funding</a></td>
             </tr>
             <tr>
+              <td data-label="Company">Groq</td>
+              <td data-label="Deployed Power" class="power" title="Projected capacity: Groq targets scaling toward 200 MW by 2027. Current deployed capacity is not disclosed."><a href="https://groq.com/newsroom/groq-raises-usd650m-to-scale-its-ai-inference-cloud-business">200 MW</a></td>
+              <td data-label="Annual Revenue" class="revenue" title="Illustrative projected revenue using Groq's 200 MW target and $10M of annual revenue per MW.">$2B</td>
+              <td data-label="Headcount" data-val="312">312</td>
+              <td data-label="Funding Round" data-val="other"><span class="badge strategic">Growth</span></td>
+              <td data-label="Amount Raised" data-val="650" class="amount">$650M</td>
+              <td data-label="Careers"><a href="https://groq.com/careers-at-groq">groq.com/careers-at-groq</a></td>
+              <td data-label="Sources"><a href="https://www.linkedin.com/company/groq/jobs">Headcount</a> | <a href="https://groq.com/newsroom/groq-raises-usd650m-to-scale-its-ai-inference-cloud-business">Funding</a></td>
+            </tr>
+            <tr>
               <td data-label="Company">SambaNova</td>
-              <td data-label="Deployed Power" class="power" title="Per-rack draw for SambaNova SN40 and SN50 systems. SambaNova does not disclose its aggregate deployed rack count."><a href="https://sambanova.ai/blog/introducing-the-sn50-rdu-purpose-built-for-agentic-inference">10-20 kW</a></td>
-              <td data-label="Headcount" data-val="437">437</td>
+              <td data-label="Deployed Power" class="power" title="SambaNova discloses approximately 10 kW per rack but does not disclose an aggregate deployed rack count or company-wide MW total.">N/A</td>
+              <td data-label="Annual Revenue" class="revenue" title="Cannot estimate company-wide potential revenue without aggregate deployed power.">N/A</td>
+              <td data-label="Headcount" data-val="407">407</td>
               <td data-label="Funding Round" data-val="E"><span class="badge series">Series E</span></td>
               <td data-label="Amount Raised" data-val="350" class="amount">$350M</td>
-              <td data-label="Careers"><a href="https://www.linkedin.com/company/sambanova-systems/jobs/">linkedin.com/company/sambanova-systems/jobs</a></td>
-              <td data-label="Sources"><a href="https://www.tamradar.com/funding-rounds/sambanova-series-e-350m">Headcount</a> | <a href="https://sambanova.ai/press/sambanova-unveils-fastest-chip-for-agentic-ai-collaborates-with-intel-and-raises-350m">Funding</a></td>
+              <td data-label="Careers"><a href="https://sambanova.ai/company/careers">sambanova.ai/company/careers</a></td>
+              <td data-label="Sources"><a href="https://www.linkedin.com/company/sambanova">Headcount</a> | <a href="https://sambanova.ai/press/sambanova-unveils-fastest-chip-for-agentic-ai-collaborates-with-intel-and-raises-350m">Funding</a></td>
             </tr>
           </tbody>
         </table>
       </div>
     </section>
 
-    <p class="footer-note">Headcount values are snapshot estimates; funding labels reflect the best public categorization available from cited sources. Power values mix reported capacity with estimates marked ~; estimates use disclosed accelerator counts and NVIDIA accelerator or system power specifications, excluding facility cooling and electrical overhead.</p>
+    <p class="footer-note">Headcount values are LinkedIn associated-profile counts captured as a current snapshot; funding labels reflect the best public categorization available from cited sources. Power estimates use conservative single-point figures derived from disclosed accelerator counts and NVIDIA accelerator or system power specifications, excluding facility cooling and electrical overhead. Potential annual revenue applies an <a href="https://openai.com/index/a-business-that-scales-with-the-value-of-intelligence/">OpenAI-derived $10M per deployed MW benchmark</a> to the displayed power figure; it is illustrative and not company guidance.</p>
   </main>
 
   <script>
@@ -562,7 +638,7 @@
 
       /* ── Headcount display normalization ─────────────────────── */
       Array.from(tbody.rows).forEach((row) => {
-        const headcountCell = row.cells[2];
+        const headcountCell = row.cells[3];
         const rawHeadcount = Number(headcountCell?.dataset.val || 0);
         if (headcountCell && Number.isFinite(rawHeadcount) && rawHeadcount > 0) {
           headcountCell.textContent = rawHeadcount.toLocaleString("en-US");
@@ -571,7 +647,7 @@
 
       /* ── Funding badge color normalization ───────────────────── */
       Array.from(tbody.rows).forEach((row) => {
-        const roundCell = row.cells[3];
+        const roundCell = row.cells[4];
         const roundVal = (roundCell?.dataset.val || "").toLowerCase();
         const badge = roundCell?.querySelector(".badge.series");
         if (!badge) return;
@@ -593,14 +669,14 @@
       function updateSortState(col, ascending) {
         sortableHeaders.forEach((header) => {
           header.classList.remove("sort-asc", "sort-desc");
-          header.querySelector(".sort-arrow").textContent = "↕";
+          header.setAttribute("aria-sort", "none");
         });
 
         const activeHeader = sortableHeaders.find((header) => parseInt(header.dataset.col, 10) === col);
         if (!activeHeader) return;
 
         activeHeader.classList.add(ascending ? "sort-asc" : "sort-desc");
-        activeHeader.querySelector(".sort-arrow").textContent = ascending ? "↑" : "↓";
+        activeHeader.setAttribute("aria-sort", ascending ? "ascending" : "descending");
       }
 
       function sortRows(col, type, ascending) {
@@ -615,7 +691,7 @@
         updateSortState(col, ascending);
       }
 
-      let sortCol = 3, sortAsc = true;
+      let sortCol = 4, sortAsc = true;
       sortRows(sortCol, "tier", sortAsc);
 
       sortableHeaders.forEach((th) => {
